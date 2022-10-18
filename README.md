@@ -7,3 +7,4 @@ Unity Daily Reward Implementation Using System DateTime APIS
 
 > Attach ```DailyRewardBtn.cs``` anywhere in scene and assign ```Timer Text```.
 
+> Give Reward on `Btn Click`
