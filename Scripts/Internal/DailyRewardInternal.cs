@@ -79,16 +79,12 @@ namespace Randoms.DailyReward.Internals
         public static string NextRewardTimer ()
         {
             var timeNow = DateTime.Now;
-            // Debug.Log (DateTime.ParseExact (store.lastTime, "O", CultureInfo.CurrentCulture));
-            // Debug.Break ();
             var lastTime = DateTime.Parse (store.lastTime);
-            // var lastTime = DateTime.Now;
             TimeSpan timeDiff = lastTime - timeNow; 
             
-
             return 
             (
-                Math.Abs(timeDiff.Days) <= 0 
+                Math.Abs(timeDiff.Days) <= 0 && !isInitialized
                 ?
                 $"NEXT REWARD IN {23 - Math.Abs(timeDiff.Hours)}H {59 - Math.Abs(timeDiff.Minutes)}M {60 - Math.Abs(timeDiff.Seconds)}SEC"
                 :

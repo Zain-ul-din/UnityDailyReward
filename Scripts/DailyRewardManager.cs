@@ -18,7 +18,6 @@ namespace Randoms.DailyReward
         {
             if (Instance) Destroy (this);
             Instance = this;
-            Debug.Log (PlayerPrefs.GetString ("RANDOMS_DAILYREWARD_STORE"));
         }
         
         void Start()
