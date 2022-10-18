@@ -22,7 +22,7 @@ namespace Randoms.DailyReward.Internals
                 }
 
                 // check if the user does not log in more than 1 day
-                if (Util.GetTimeSpanFromNow (store.lastTime).Days > 0)
+                if (Util.GetTimeSpanFromNow (store.lastTime).Days > 1)
                 {
                     isInitialized = true;
                     store = DailyRewardStore.GetDefault ();
