@@ -94,12 +94,12 @@ namespace Randoms.DailyReward.Internals
                 (
                     Math.Abs(timeDiff.Days) <= 0 && !isInitialized
                     ?
-                    $"NEXT REWARD IN {23 - Math.Abs(timeDiff.Hours)}H {59 - Math.Abs(timeDiff.Minutes)}M {60 - Math.Abs(timeDiff.Seconds)}SEC"
+                    $"{23 - Math.Abs(timeDiff.Hours)}:{59 - Math.Abs(timeDiff.Minutes)}:{60 - Math.Abs(timeDiff.Seconds)}"
                     :
                     "AVAILABLE"
                 ); 
             }
-
+            
             /// <summary>
             /// Returns can Claim today reward
             /// </summary>

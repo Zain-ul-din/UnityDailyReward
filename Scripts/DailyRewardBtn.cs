@@ -25,11 +25,26 @@ namespace Randoms.DailyReward
         [Space (10)][Header ("Reward Events")]
         public UnityEvent onRewardCollect;
         public UnityEvent on2XRewardCollect;
+        public UnityEvent onClick;
         
+        internal bool isInitialized = false;
+
         
+
+        [Btn ("Click Me")]
+        public void Foo ()
+        {
+            Debug.Log ("FOOoOoOoOoO");
+        }
         
         private void Awake ()
         {
+            Init ();
+        }
+        
+        internal void Init ()
+        {
+            if (isInitialized) return;
             btn = GetComponent <Button> ();
             if (dailyRewardBtns == null)
             {

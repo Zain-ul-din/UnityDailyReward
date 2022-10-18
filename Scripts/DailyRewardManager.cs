@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ namespace Randoms.DailyReward
         public static DailyRewardManager Instance {get; private set;}
         private bool isInitialized = false;
         private bool canRefreshUI  = true;
-        private DailyRewardBtn activeBtn;
+        public DailyRewardBtn activeBtn {get; private set;}
 
         void Awake ()
         {
@@ -64,6 +65,16 @@ namespace Randoms.DailyReward
         /// </summary>
         void Init ()
         {
+            if (DailyRewardBtn.dailyRewardBtns == null)
+            {
+                DailyRewardBtn.dailyRewardBtns = new List<DailyRewardBtn> ();
+                foreach (var btn in FindObjectsOfType <DailyRewardBtn> ())
+                {
+                    btn.Init ();
+                    DailyRewardBtn.dailyRewardBtns.Add (btn);
+                }
+            }
+
             foreach (var btn in DailyRewardBtn.dailyRewardBtns)
             {
                 var (canClaim, status) = DailyRewardInternal.GetDailyRewardStatus (btn.day);
@@ -73,11 +84,15 @@ namespace Randoms.DailyReward
                     case DailyRewardStatus.UNCLAIMED_UNAVAILABLE:  btn.OnClaimUnAvailableState?.Invoke();  break;
                 }
                 
+                // ative btn
                 if (status == DailyRewardStatus.UNCLAIMED_AVAILABLE && canClaim)
                 {
                     activeBtn = btn;
                     btn.OnClaimState?.Invoke ();
-                    btn.btn.onClick.AddListener (()=> DailyRewardInternal.ClaimTodayReward (()=> Init ()));
+                    btn.btn.onClick.AddListener (()=> DailyRewardInternal.ClaimTodayReward (()=> {
+                        Init ();
+                        btn.onClick?.Invoke (); 
+                    }));
                 }
             }
         }    
