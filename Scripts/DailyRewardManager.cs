@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Randoms.DailyReward
 {
     using Internals;
-    using Editor;
 
-    [HelperBox (" Public APIS:\n DailyRewardManager.CollectReward() \n ||\n DailyRewardManager.Collect2XReward()")]
     public class DailyRewardManager: MonoBehaviour
     {
         
@@ -16,7 +15,7 @@ namespace Randoms.DailyReward
         public static DailyRewardManager Instance {get; private set;}
         private bool isInitialized = false;
         private bool canRefreshUI  = true;
-        public DailyRewardBtn activeBtn {get; private set;}
+        private DailyRewardBtn activeBtn;
 
         void Awake ()
         {
@@ -26,13 +25,14 @@ namespace Randoms.DailyReward
         
         void Start()
         {
-            Init ();
             isInitialized = true;
             StartCoroutine (CountTimer());
+            Init ();
         }
 
         void OnEnable ()
         {
+            Debug.Log (PlayerPrefs.GetString ("RANDOMS_DAILYREWARD_STORE"));
             if (!isInitialized) return;
             Init ();
         }
@@ -58,25 +58,18 @@ namespace Randoms.DailyReward
             activeBtn.on2XRewardCollect?.Invoke ();
         }
 
-        // Helpers
+        
 
         /// <summary>
         /// Invokes Action On Btns
         /// </summary>
         void Init ()
         {
-            if (DailyRewardBtn.dailyRewardBtns == null)
-            {
-                DailyRewardBtn.dailyRewardBtns = new List<DailyRewardBtn> ();
-                foreach (var btn in FindObjectsOfType <DailyRewardBtn> ())
-                {
-                    btn.Init ();
-                    DailyRewardBtn.dailyRewardBtns.Add (btn);
-                }
-            }
 
+            
             foreach (var btn in DailyRewardBtn.dailyRewardBtns)
             {
+                btn.Init ();
                 var (canClaim, status) = DailyRewardInternal.GetDailyRewardStatus (btn.day);
                 switch (status)
                 {
@@ -95,7 +88,7 @@ namespace Randoms.DailyReward
                     }));
                 }
             }
-        }    
+        }   
         
         IEnumerator CountTimer ()
         {

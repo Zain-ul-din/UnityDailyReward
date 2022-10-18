@@ -22,7 +22,7 @@ namespace Randoms.DailyReward.Internals
                 }
 
                 // check if the user does not log in more than 1 day
-                if (Util.GetTimeSpanFromNow (store.lastTime).Days > 1)
+                if (Mathf.Abs(Util.GetTimeSpanFromNow (store.lastTime).Days) > 1)
                 {
                     isInitialized = true;
                     store = DailyRewardStore.GetDefault ();
@@ -40,7 +40,6 @@ namespace Randoms.DailyReward.Internals
             public static (bool,DailyRewardStatus) GetDailyRewardStatus (int day)
             {
                 bool canClaim = store.currDay == day && store.canClaimReward;
-
                 if (day == store.currDay)
                 {
                     return (canClaim , DailyRewardStatus.UNCLAIMED_AVAILABLE);
@@ -99,7 +98,7 @@ namespace Randoms.DailyReward.Internals
                     "AVAILABLE"
                 ); 
             }
-            
+
             /// <summary>
             /// Returns can Claim today reward
             /// </summary>
@@ -116,7 +115,7 @@ namespace Randoms.DailyReward.Internals
             static void UpdateStore ()
             {
                 if (isInitialized) return;
-                store.canClaimReward = Util.GetTimeSpanFromNow (store.lastTime).Days > 0; 
+                store.canClaimReward = Mathf.Abs(Util.GetTimeSpanFromNow (store.lastTime).Days) > 0; 
             }
         
     }

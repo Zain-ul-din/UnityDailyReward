@@ -4,15 +4,28 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 namespace Randoms.DailyReward
 {
-    using Editor;
     
     [RequireComponent (typeof (IPointerClickHandler))]
     public class DailyRewardBtn : MonoBehaviour
     {
         public static List <DailyRewardBtn> dailyRewardBtns;
         
+        
+        public DailyRewardBtn ()
+        {
+            if (dailyRewardBtns == null)
+            {
+                dailyRewardBtns = new List<DailyRewardBtn> ();
+            }
+
+            if (dailyRewardBtns.Count > 0 && dailyRewardBtns[0] ==  null)  dailyRewardBtns = new List<DailyRewardBtn> ();   
+        
+            dailyRewardBtns.Add (this);
+        }
+ 
         [HideInInspector] public Button btn;
         public int day;
         
@@ -29,14 +42,6 @@ namespace Randoms.DailyReward
         
         internal bool isInitialized = false;
 
-        
-
-        [Btn ("Click Me")]
-        public void Foo ()
-        {
-            Debug.Log ("FOOoOoOoOoO");
-        }
-        
         private void Awake ()
         {
             Init ();
@@ -45,12 +50,8 @@ namespace Randoms.DailyReward
         internal void Init ()
         {
             if (isInitialized) return;
+            isInitialized = true;
             btn = GetComponent <Button> ();
-            if (dailyRewardBtns == null)
-            {
-                dailyRewardBtns = new List<DailyRewardBtn> ();
-            }
-            dailyRewardBtns.Add (this);
         }
     }
 }

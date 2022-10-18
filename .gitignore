@@ -1,1 +1,3 @@
 *.meta
+\Scripts\Editor
+\Scripts\Runtime
