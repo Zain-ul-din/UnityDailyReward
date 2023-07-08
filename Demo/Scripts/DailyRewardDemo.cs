@@ -25,10 +25,10 @@ public class DailyRewardDemo : MonoBehaviour
     
         /// Add listener again if needed
         DailyRewardManager.Instance.OnRewardAvailable += (DailyRewardBtn btn)=>{
-            // add listener here
+            // add listener here also update reward text here
         };
     }  
-        
+    
     /// Update Text Mesh Pro
     public void UpdateTextMeshProText ()
     {

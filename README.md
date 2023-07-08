@@ -45,6 +45,14 @@
   ```CollectReward ()``` Invokes ```DailyRewardBtn.onRewardCollect``` event of active button.
 
   ```Collect2XReward ()``` Invokes ```DailyRewardBtn.on2XRewardCollect``` event of active button.
+ 
+**Properties:-** 
+
+  ```AvailableRewardBtn``` return `DailyRewardBtn` if reward will be available.
+
+**Events:-**
+
+  ```OnRewardAvailable``` Invokes when reward available.
 
 **Static Methods:-**
 
@@ -68,10 +76,6 @@
 
 ```UnityEvent     onClick```
 
-
->
-> **```!System.Action``` aslo work instead of ```UnityEvent```.**
->
 
 **Static Methods:-**
 
