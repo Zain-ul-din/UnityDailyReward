@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+
 namespace Randoms.DailyReward
 {
     using Internals;
+    using Inspector;
 
     public class DailyRewardManager: MonoBehaviour
     {
@@ -25,6 +27,23 @@ namespace Randoms.DailyReward
 
         #endregion
 
+        #region Docs
+
+        [Button("Clear All DailyReward Player Prefs")]
+        private void ClearPlayerPrefs ()
+        {
+            PlayerPrefs.DeleteKey(DailyRewardInternal.dailyRewardStoreKey);
+        }
+
+        [Button("Ask Q&A here OR Mention Issue here")]
+        private void Help ()
+        {
+            Application.OpenURL("https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FZain-ul-din%2FDailyReward%2Fissues%2Fnew");
+        }
+
+        #endregion
+
+        #region Logic
 
         public static DailyRewardManager Instance { get; private set; }
         private bool isInitialized = false;
@@ -139,6 +158,7 @@ namespace Randoms.DailyReward
             }
         }
         
+        #endregion
 
         #region APIS
 

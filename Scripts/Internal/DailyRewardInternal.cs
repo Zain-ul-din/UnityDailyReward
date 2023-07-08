@@ -5,10 +5,10 @@ namespace Randoms.DailyReward.Internals
 {
     internal static class DailyRewardInternal
     {
-        static      readonly string      dailyRewardStoreKey = "RANDOMS_DAILY_REWARD_STORE";
+        internal static      readonly string      dailyRewardStoreKey = "RANDOMS_DAILY_REWARD_STORE";
         static      DailyRewardStore     store;
         static      bool                 isInitialized;
-
+        
         static DailyRewardInternal ()
         {
             // cache values
