@@ -1,7 +1,7 @@
 # DailyReward
 **Unity Daily Reward Implementation Using System DateTime APIS**
 
-# Demo
+### [Used in production](https://play.google.com/store/apps/details?id=com.ga.superhero.skateboard.mini.car.racinggames)
 
 ![DailyReward_Demo](https://user-images.githubusercontent.com/78583049/195974892-01a2efec-b015-4309-b32d-7958232b8525.gif)
 
