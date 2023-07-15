@@ -10,9 +10,9 @@ namespace Randoms.DailyReward
     public class DailyRewardBtn : MonoBehaviour 
     {
         [HideInInspector] public Button btn;
-        public int day;
+        [SerializeField] private int day;
         internal DailyRewardStatus status;
-        public bool overRideUiState = false;
+        internal bool redeemAvailable;
 
         [Space (10)][Header ("Ui State")]
         public UnityEvent OnClaimState;
@@ -24,12 +24,14 @@ namespace Randoms.DailyReward
         public UnityEvent onRewardCollect;
         public UnityEvent on2XRewardCollect;
         public UnityEvent onClick;
+        [Header("Optional! Use Only if redeem is enable")][Space(5)]
+        public UnityEvent onRedeemReward;
         
         internal void Init ()
         {
             btn = GetComponent <Button> ();
 
-            if(!overRideUiState)
+            if(DailyRewardConfigSO.Instance.useDefaultStyling)
                 AddDefaultUiState ();
         }
 
@@ -48,5 +50,16 @@ namespace Randoms.DailyReward
         {
             get=> status;
         }
+
+        public int Day 
+        {
+            get=> day;
+        }
+
+        public bool RedeemAvailable 
+        {
+            get=> redeemAvailable;
+        }
     }
 }
+

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Randoms.DailyReward.Internals
 {
     using DailyReward;
-
+    
     internal static class DailyRewardInternal
     {
         internal static      readonly string      dailyRewardStoreKey = "RANDOMS_DAILY_REWARD_STORE";
@@ -64,8 +64,9 @@ namespace Randoms.DailyReward.Internals
             if (!store.canClaimReward) return;
             store.lastTime = DateTime.Now.ToString ();
             store.currDay  = store.currDay + 1;
-            if (store.currDay > maxDays)
-            {
+            // all rewards has been collected
+            if (store.currDay > maxDays) {
+                store.canRedeemReward = true;
                 store.currDay = 1;
             }
             Util.SaveStore (store, dailyRewardStoreKey);
@@ -74,6 +75,7 @@ namespace Randoms.DailyReward.Internals
             isInitialized = false;
         }
         
+
 
         /// <summary>
         /// Returns time left for next reward
@@ -105,8 +107,7 @@ namespace Randoms.DailyReward.Internals
             UpdateStore ();
             return store.canClaimReward;
         }        
-
-
+        
         /// <summary>
         /// Updates Store Value WRT Time Span
         /// </summary>
@@ -116,9 +117,17 @@ namespace Randoms.DailyReward.Internals
             store.canClaimReward = Mathf.Abs(Util.GetTimeSpanFromNow (store.lastTime).Days) > 0; 
         }
         
+        /// <summary>
+        /// Returns true if can Redeem Reward
+        /// </summary>
+        public static bool CanRedeemReward 
+        {
+            get {
+                return store.canRedeemReward;
+            }
+        }
     }
     
-
     // Utilities
     internal static class Util
     {
@@ -144,14 +153,17 @@ namespace Randoms.DailyReward.Internals
                 lastTime = DateTime.Now.ToString (),
                 currDay  = 1,
                 canClaimReward = true,
+                canRedeemReward = false
             };
         }
         
         public string lastTime;
         public int currDay;
         public bool   canClaimReward;
+        public bool   canRedeemReward;
     }
 }
+
 
 
 

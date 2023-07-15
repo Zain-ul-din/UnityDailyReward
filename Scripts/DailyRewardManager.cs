@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,16 +18,22 @@ namespace Randoms.DailyReward
 
         [Header ("Timer Text Options")]
         public Text timeCounterText;
-        public string availableText = "AVAILABLE"; 
-        public string timerTextPrefix = "Next Reward In";
-        public string timerTextPostfix = "TIME";
 
         [Space(20)]
         [SerializeField] private UnityEvent onActiveBtnClicked;
+        
+        [Space(5)] [Header("Called Only if redeem is enabled")]
+        [SerializeField] private UnityEvent onRedeemActiveBtnClicked;
 
         #endregion
 
         #region Docs
+
+        [Button ("Open DailyReward Config")]
+        private void OpenConfig ()
+        {
+            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:ScriptableObject", false);
+        }
 
         [Button("Clear All DailyReward Player Prefs")]
         private void ClearPlayerPrefs ()
@@ -50,8 +56,8 @@ namespace Randoms.DailyReward
         private bool canRefreshUI  = true;
         private DailyRewardBtn activeBtn;
         private static List<DailyRewardBtn> dailyRewardBtns;
+        private Action<DailyRewardBtn> _applyUiStyling;
 
-        
         void Awake ()
         {
             if (Instance) Destroy (this);
@@ -97,6 +103,11 @@ namespace Randoms.DailyReward
         {
             activeBtn.on2XRewardCollect?.Invoke ();
         }
+
+        public void RedeemReward ()
+        {
+            activeBtn.onRedeemReward?.Invoke ();
+        }
         
         /// <summary>
         /// Invokes Action On Btns
@@ -106,9 +117,10 @@ namespace Randoms.DailyReward
             foreach (var btn in dailyRewardBtns)
             {
                 btn.Init ();
-                var (canClaim, status) = DailyRewardInternal.GetDailyRewardStatus (btn.day);
+                var (canClaim, status) = DailyRewardInternal.GetDailyRewardStatus (btn.Day);
                 btn.status = status;
-
+                btn.redeemAvailable = DailyRewardInternal.CanRedeemReward;
+                
                 switch (status)
                 {
                     case DailyRewardStatus.CLAIMED:  btn.OnClaimedState?.Invoke (); break;
@@ -124,9 +136,14 @@ namespace Randoms.DailyReward
                     btn.btn.onClick.AddListener (()=> DailyRewardInternal.ClaimTodayReward (()=> {
                         Init ();
                         btn.onClick?.Invoke (); 
-                        onActiveBtnClicked?.Invoke();
+                        if (DailyRewardConfigSO.Instance.useRedeem && DailyRewardInternal.CanRedeemReward)
+                            onRedeemActiveBtnClicked?.Invoke();
+                        else                             
+                            onActiveBtnClicked?.Invoke();
                     }, dailyRewardBtns.Count));
                 }
+
+                _applyUiStyling?.Invoke(btn);
             }
         }   
         
@@ -138,7 +155,9 @@ namespace Randoms.DailyReward
                 yield return new WaitForSeconds (1f);
                 
                 newRewardStr = DailyRewardInternal.NextRewardTimer(
-                    timerTextPrefix,timerTextPostfix, availableText
+                    DailyRewardConfigSO.Instance.timerTextPrefix,
+                    DailyRewardConfigSO.Instance.timerTextPostfix, 
+                    DailyRewardConfigSO.Instance.textOnAvailable
                 );
 
                 _tickListeners.ForEach(listener => {
@@ -191,7 +210,6 @@ namespace Randoms.DailyReward
             _tickListeners.Clear();
         }
 
-
         public void AddTickListener (Action<string> _action)
         {
             _tickListeners.Add(_action);
@@ -202,7 +220,19 @@ namespace Randoms.DailyReward
             _tickListeners.Remove(_action);
         }
 
+        public void ApplyUiStyling(Action<DailyRewardBtn> _action)
+        {
+            if (DailyRewardConfigSO.Instance.useDefaultStyling)
+                throw new Exception(@"
+                    You can't use ApplyUiStyling. 
+                    since you are using default styling in config.
+                    Please disable it first"
+                );
+            _applyUiStyling = _action;
+        }
+
         #endregion
     }
 }
+
 
