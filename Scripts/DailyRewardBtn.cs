@@ -11,6 +11,7 @@ namespace Randoms.DailyReward
     {
         [HideInInspector] public Button btn;
         public int day;
+        internal DailyRewardStatus status;
         public bool overRideUiState = false;
 
         [Space (10)][Header ("Ui State")]
@@ -41,6 +42,11 @@ namespace Randoms.DailyReward
             OnClaimedState.AddListener(()=> {
                 btn.interactable = false;
             });
+        }
+
+        public DailyRewardStatus Status 
+        {
+            get=> status;
         }
     }
 }

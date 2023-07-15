@@ -16,14 +16,12 @@ namespace Randoms.Inspector
         void OnEnable()
         {
             buttonMethods.Clear();
-            var methods = target.GetMethodsInfo((method) =>
-            {
+            var methods = target.GetMethodsInfo((method) => {
                 return method.IsDefined(typeof(ButtonAttribute), true);
             });
 
             foreach (var method in methods)
             {
-                
                 System.Action action = () => target.GetMethodInfo(method.Name).Invoke(target, null);
                 buttonMethods.Add((method, action));
             }

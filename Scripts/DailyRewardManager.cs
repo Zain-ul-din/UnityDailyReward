@@ -107,6 +107,8 @@ namespace Randoms.DailyReward
             {
                 btn.Init ();
                 var (canClaim, status) = DailyRewardInternal.GetDailyRewardStatus (btn.day);
+                btn.status = status;
+
                 switch (status)
                 {
                     case DailyRewardStatus.CLAIMED:  btn.OnClaimedState?.Invoke (); break;
@@ -169,6 +171,13 @@ namespace Randoms.DailyReward
         {
             get  {
                 return activeBtn;
+            }
+        }
+
+        public bool IsRewardAvailable 
+        {
+            get  {
+                return activeBtn != null;
             }
         }
 

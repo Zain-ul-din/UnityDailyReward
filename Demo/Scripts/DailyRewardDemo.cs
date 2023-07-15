@@ -10,7 +10,7 @@ public class DailyRewardDemo : MonoBehaviour
     public void Start ()
     {
         // check if reward available
-        if (DailyRewardManager.Instance.AvailableRewardBtn == null)
+        if (!DailyRewardManager.Instance.IsRewardAvailable)
         {
             menuBtn.onClick.RemoveAllListeners();
             menuBtn.interactable = false;
@@ -23,7 +23,7 @@ public class DailyRewardDemo : MonoBehaviour
             });
         }
     
-        /// Add listener again if needed
+        
         DailyRewardManager.Instance.OnRewardAvailable += (DailyRewardBtn btn)=>{
             // add listener here also update reward text here
         };

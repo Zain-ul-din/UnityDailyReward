@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Randoms.DailyReward.Internals
 {
+    using DailyReward;
+
     internal static class DailyRewardInternal
     {
         internal static      readonly string      dailyRewardStoreKey = "RANDOMS_DAILY_REWARD_STORE";
@@ -148,13 +150,6 @@ namespace Randoms.DailyReward.Internals
         public string lastTime;
         public int currDay;
         public bool   canClaimReward;
-    }
-
-    public enum DailyRewardStatus 
-    {
-        UNCLAIMED_AVAILABLE,
-        UNCLAIMED_UNAVAILABLE,
-        CLAIMED
     }
 }
 
