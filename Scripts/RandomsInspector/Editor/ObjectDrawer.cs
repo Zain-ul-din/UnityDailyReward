@@ -29,9 +29,34 @@ namespace Randoms.Inspector
         
         public override void OnInspectorGUI()
         {
-            DrawDefaultInspector();
-            GUILayout.Space(20);
+            serializedObject.Update ();
 
+            var iterator = serializedObject.GetIterator();
+            if (iterator.NextVisible(true))
+            {
+                do {
+                    var fieldInfo = iterator.serializedObject.targetObject.GetType().GetField(iterator.propertyPath, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                    if (fieldInfo != null)
+                    {
+                        var showIfAttr = fieldInfo.GetCustomAttribute(typeof(ShowIfAttribute)) as ShowIfAttribute;
+                        if(showIfAttr != null) {
+                            var condition = serializedObject.targetObject
+                                .GetMethodInfo(showIfAttr.Condition, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                                .Invoke(serializedObject.targetObject, null) as bool?;
+                            if(condition == null || !condition.Value) continue;
+                        }
+                        EditorGUILayout.PropertyField(iterator, true);
+                    }
+                    else
+                    {
+                        EditorGUILayout.PropertyField(iterator, true);
+                    }
+                }
+                while (iterator.NextVisible(false));
+            }
+
+            GUILayout.Space(10);
             foreach (var buttonMethod in buttonMethods)
             {
                 var buttonAttr = buttonMethod.method.GetCustomAttribute(typeof(ButtonAttribute)) as ButtonAttribute;
@@ -41,6 +66,8 @@ namespace Randoms.Inspector
                     buttonMethod.action.Invoke();
                 }
             }
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Randoms.DailyReward
         [SerializeField] private UnityEvent onActiveBtnClicked;
         
         [Space(5)] [Header("Called Only if redeem is enabled")]
-        [SerializeField] private UnityEvent onRedeemActiveBtnClicked;
-
+        [ShowIf("Editor_OnRedeemEnable")][SerializeField] private UnityEvent onRedeemActiveBtnClicked;
+        
         #endregion
 
         #region Docs
@@ -45,6 +45,14 @@ namespace Randoms.DailyReward
         private void Help ()
         {
             Application.OpenURL("https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FZain-ul-din%2FDailyReward%2Fissues%2Fnew");
+        }
+
+        private bool Editor_OnRedeemEnable ()
+        {
+            var res = Resources.Load<DailyRewardConfigSO> ("DailyRewardConfig");
+            if (res == null)
+                return DailyRewardConfigSO.Instance.useRedeem;
+            return res.useRedeem;
         }
 
         #endregion

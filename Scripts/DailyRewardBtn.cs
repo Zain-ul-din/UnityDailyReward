@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Randoms.DailyReward
 {
-    
+    using Inspector;
     [RequireComponent (typeof (IPointerClickHandler))]
     public class DailyRewardBtn : MonoBehaviour 
     {
@@ -24,8 +24,9 @@ namespace Randoms.DailyReward
         public UnityEvent onRewardCollect;
         public UnityEvent on2XRewardCollect;
         public UnityEvent onClick;
+
         [Header("Optional! Use Only if redeem is enable")][Space(5)]
-        public UnityEvent onRedeemReward;
+        [ShowIf("Editor_OnRedeemEnable")]public UnityEvent onRedeemReward;
         
         internal void Init ()
         {
@@ -60,6 +61,15 @@ namespace Randoms.DailyReward
         {
             get=> redeemAvailable;
         }
+
+        private bool Editor_OnRedeemEnable ()
+        {
+            var res = Resources.Load<DailyRewardConfigSO> ("DailyRewardConfig");
+            if (res == null)
+                return DailyRewardConfigSO.Instance.useRedeem;
+            return res.useRedeem;
+        }
     }
 }
+
 

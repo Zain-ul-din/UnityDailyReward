@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace Randoms.Inspector 
 {
     public class ButtonAttribute: IRandomsAttribute 
