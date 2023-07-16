@@ -259,7 +259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 1
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -276,6 +275,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRedeemReward:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &159556518
@@ -414,7 +416,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 5
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -433,68 +434,9 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &356725286
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 356725287}
-  - component: {fileID: 356725288}
-  m_Layer: 0
-  m_Name: DailyRewardManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &356725287
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356725286}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &356725288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356725286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f8efc127f2a039488eac19e66342f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeCounterText: {fileID: 965743995}
-  availableText: AVAILABLE
-  timerTextPrefix: Next Reward In
-  timerTextPostfix: TIME
-  onActiveBtnClicked:
+  onRedeemReward:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 649400078}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &382535308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1436,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 2
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -1511,6 +1452,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRedeemReward:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &965743993
@@ -1823,7 +1767,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 4
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -1840,6 +1783,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRedeemReward:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1020946090
@@ -1871,7 +1817,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1020946092
 MonoBehaviour:
@@ -2022,7 +1968,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 3
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -2041,6 +1986,71 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls: []
+  onRedeemReward:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &1186568542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1186568544}
+  - component: {fileID: 1186568543}
+  m_Layer: 0
+  m_Name: DailyRewardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1186568543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186568542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8efc127f2a039488eac19e66342f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeCounterText: {fileID: 965743995}
+  onActiveBtnClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 649400078}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onRedeemActiveBtnClicked:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1186568544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186568542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273857254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,7 +2229,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 356725288}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Randoms.DailyReward.DailyRewardManager, DailyReward
         m_MethodName: Collect2XReward
         m_Mode: 1
@@ -2981,7 +2991,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 356725288}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Randoms.DailyReward.DailyRewardManager, DailyReward
         m_MethodName: CollectReward
         m_Mode: 1
@@ -3286,7 +3296,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 7
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -3303,6 +3312,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRedeemReward:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2106589593
@@ -3441,7 +3453,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
   day: 6
-  overRideUiState: 0
   OnClaimState:
     m_PersistentCalls:
       m_Calls: []
@@ -3458,5 +3469,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onRedeemReward:
     m_PersistentCalls:
       m_Calls: []

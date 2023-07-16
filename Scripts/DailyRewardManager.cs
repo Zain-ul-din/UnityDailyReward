@@ -10,6 +10,7 @@ namespace Randoms.DailyReward
 {
     using Internals;
     using Inspector;
+    using UnityEditor;
 
     public class DailyRewardManager: MonoBehaviour
     {
@@ -238,9 +239,37 @@ namespace Randoms.DailyReward
                 );
             _applyUiStyling = _action;
         }
+        #endregion
+
+        #region Editor
+
+        [MenuItem("Tools/DailyReward/DailyRewardManager")]
+        private static void CreateInstance ()
+        {
+            var instance = GameObject.FindObjectOfType<DailyRewardManager> ();
+            if(instance) return;
+            else  {
+                var go = new GameObject("DailyRewardManager");
+                instance = go.AddComponent<DailyRewardManager>(); 
+            }
+
+            Selection.activeObject = instance;
+        }
+
+        void OnDrawGizmos()
+        {
+            var instances = GameObject.FindObjectsOfType<DailyRewardManager> ();
+            if (instances.Length <= 1) return;
+            foreach (var instance in instances)
+                if (instance != this)
+                    Selection.activeObject = instance;
+            DestroyImmediate (this);
+            Debug.LogError(@"'DailyRewardManager' is a singleton. Please use the existing one");
+        }
 
         #endregion
     }
 }
+
 
 
