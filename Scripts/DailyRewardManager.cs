@@ -247,8 +247,7 @@ namespace Randoms.DailyReward
         private static void CreateInstance ()
         {
             var instance = GameObject.FindObjectOfType<DailyRewardManager> ();
-            if(instance) return;
-            else  {
+            if(!instance) {
                 var go = new GameObject("DailyRewardManager");
                 instance = go.AddComponent<DailyRewardManager>(); 
             }
