@@ -40,7 +40,15 @@ namespace Randoms.DailyReward
 
         void OnApplicationQuit()
         {
-            if(!DailyRewardManager.Instance.IsRewardAvailable|| m_notification_id == -1) return;
+            if(!DailyRewardManager.Instance.IsRewardAvailable) return;
+            
+            if (m_notification_id == -1) 
+            {
+                Debugger("DailyReward Notification: will be Sent after N time");
+                m_notification_id = SendNotification(DailyRewardConfigSO.Instance.pendingRewardNotifyInterval);
+                return;
+            }
+
             NotificationStatus status = AndroidNotificationCenter.CheckScheduledNotificationStatus(m_notification_id);
             
             if(status == NotificationStatus.Scheduled)
