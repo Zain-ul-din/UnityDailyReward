@@ -28,7 +28,8 @@
 # Usage
 
 ```diff
-- Version "1.0" documentation may not cover all features of version "2.0" but still valuable to checkout. 
+- Version "1.0" documentation may not cover all features of version "2.0".
+- But still valuable to checkout. 
 ```
 
 * Attach ```DailyRewardBtn.cs``` on each button and assign day in inspector.
@@ -99,7 +100,7 @@
 
 **Static Methods:-**
 
-```List <DailyRewardBtn> dailyRewardBtns``` static list to acess all buttons
+```List <DailyRewardBtn> dailyRewardBtns``` static list to access all buttons
 
 ***
 
