@@ -12,6 +12,8 @@
 
 - **Customization:** System is easily customizable to suit specific needs.
 
+- **Easy to Understand:** Everything inside package is self explanatory and easy to understand. 
+
 ### Limitations:
 
 - **Local Time/Date:** The system uses local time and date for tracking and managing daily rewards.
@@ -24,6 +26,10 @@
 ***
 
 # Usage
+
+```diff
+- Version "1.0" documentation may not cover all features of version "2.0" but still valuable to checkout. 
+```
 
 * Attach ```DailyRewardBtn.cs``` on each button and assign day in inspector.
 
