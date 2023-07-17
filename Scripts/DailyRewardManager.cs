@@ -153,9 +153,11 @@ namespace Randoms.DailyReward
                             onRedeemActiveBtnClicked?.Invoke();
                         else                             
                             onActiveBtnClicked?.Invoke();
+                        
+                        OnRewardClaim?.Invoke();
                     }, dailyRewardBtns.Count));
                 }
-
+                
                 _applyUiStyling?.Invoke(btn);
             }
         }   
@@ -195,6 +197,8 @@ namespace Randoms.DailyReward
         #endregion
 
         #region APIS
+
+        public event Action OnRewardClaim;
 
         /// <Summary>
         /// Returns active btn if reward available

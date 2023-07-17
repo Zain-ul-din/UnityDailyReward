@@ -16,7 +16,16 @@ namespace Randoms.DailyReward
         [Space(25)][Header("Redeem Options")]
         
         [Tooltip("allow user to redeem already claimed reward")]
-        public bool useRedeem = false;        
+        public bool useRedeem = false;       
+
+
+        [Space(25)][Header("Notifications")]
+        public bool useNotifications = true;
+        public string notificationTitle = "Daily Reward";
+        public string notificationMessage = "Your daily reward is available"; 
+        
+        [Header("How often user should be notified about pending reward? After game quit.")]
+        public int pendingRewardNotifyInterval = 5; // in minutes
         
         #region  Singleton
 

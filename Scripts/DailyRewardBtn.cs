@@ -3,6 +3,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+
 namespace Randoms.DailyReward
 {
     using Inspector;
