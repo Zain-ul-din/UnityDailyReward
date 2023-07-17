@@ -15,9 +15,9 @@ namespace Randoms.DailyReward
         internal bool redeemAvailable;
 
         [Space (10)][Header ("Ui State")]
-        public UnityEvent OnClaimState;
-        public UnityEvent OnClaimedState;
-        public UnityEvent OnClaimUnAvailableState;
+        [ShowIf("Editor_UseOverrideStyles")]  public UnityEvent OnClaimState;
+        [ShowIf("Editor_UseOverrideStyles")]  public UnityEvent OnClaimedState;
+        [ShowIf("Editor_UseOverrideStyles")]  public UnityEvent OnClaimUnAvailableState;
         
         
         [Space (10)][Header ("Reward Events")]
@@ -46,7 +46,7 @@ namespace Randoms.DailyReward
                 btn.interactable = false;
             });
         }
-
+        
         public DailyRewardStatus Status 
         {
             get=> status;
@@ -62,6 +62,9 @@ namespace Randoms.DailyReward
             get=> redeemAvailable;
         }
 
+        #region  Editor
+
+        #if UNITY_EDITOR
         private bool Editor_OnRedeemEnable ()
         {
             var res = Resources.Load<DailyRewardConfigSO> ("DailyRewardConfig");
@@ -69,7 +72,24 @@ namespace Randoms.DailyReward
                 return DailyRewardConfigSO.Instance.useRedeem;
             return res.useRedeem;
         }
+
+        private bool Editor_UseOverrideStyles()
+        {
+            var res = Resources.Load<DailyRewardConfigSO> ("DailyRewardConfig");
+            if (res == null)
+                return !DailyRewardConfigSO.Instance.useDefaultStyling;
+            return !res.useDefaultStyling;
+        }
+
+        [Button("Open Config", doc = "if you want to use your own styles - untick use default styling from config")]
+        private void Docs ()
+        {
+            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:ScriptableObject");
+        }
+        #endif
+        #endregion
     }
 }
+
 
 

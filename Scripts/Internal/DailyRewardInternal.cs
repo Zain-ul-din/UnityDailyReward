@@ -10,6 +10,8 @@ namespace Randoms.DailyReward.Internals
         internal static      readonly string      dailyRewardStoreKey = "RANDOMS_DAILY_REWARD_STORE";
         static      DailyRewardStore     store;
         static      bool                 isInitialized;
+
+        internal static event Action OnClaimed; 
         
         static DailyRewardInternal ()
         {
@@ -73,10 +75,10 @@ namespace Randoms.DailyReward.Internals
             UpdateStore ();
             refreshUI ();
             isInitialized = false;
+
+            OnClaimed?.Invoke();
         }
         
-
-
         /// <summary>
         /// Returns time left for next reward
         /// </summary>

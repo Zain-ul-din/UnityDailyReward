@@ -62,6 +62,9 @@ namespace Randoms.Inspector
             {
                 var buttonAttr = buttonMethod.method.GetCustomAttribute(typeof(ButtonAttribute)) as ButtonAttribute;
 
+                if (buttonAttr.doc != "")
+                    EditorGUILayout.HelpBox(buttonAttr.doc, MessageType.Info);
+                
                 if (GUILayout.Button(buttonAttr.buttonName))
                 {
                     buttonMethod.action.Invoke();
