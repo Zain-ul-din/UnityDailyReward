@@ -1,6 +1,20 @@
 # DailyReward
 **Unity Daily Reward Implementation Using System DateTime APIS**
 
+
+### Features:
+
+- **Redeem Options:** Users can exchange collected rewards for in-game items, currency, upgrades, or trade/sell to other players.
+
+- **User-friendly APIs**: The implementation offers intuitive and straightforward application programming interfaces (APIs) that are designed for easy integration, even for non-technical users.
+
+- **Proven in Production:** Successfully tested and used in a live production environment.
+
+- **Customization:** System is easily customizable to suit specific needs.
+
+### Limitations:
+
+- **Local Time/Date:** The system uses local time and date for tracking and managing daily rewards.
 ### [Used in production](https://play.google.com/store/apps/details?id=com.ga.superhero.skateboard.mini.car.racinggames)
 
 ![DailyReward_Demo](https://user-images.githubusercontent.com/78583049/195974892-01a2efec-b015-4309-b32d-7958232b8525.gif)
