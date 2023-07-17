@@ -30,6 +30,8 @@ namespace Randoms.DailyReward
 
         #region Docs
 
+        #if UNITY_EDITOR
+
         [Button ("Open DailyReward Config")]
         private void OpenConfig ()
         {
@@ -55,6 +57,8 @@ namespace Randoms.DailyReward
                 return DailyRewardConfigSO.Instance.useRedeem;
             return res.useRedeem;
         }
+
+        #endif
 
         #endregion
 
@@ -211,7 +215,6 @@ namespace Randoms.DailyReward
 
         public event Action<DailyRewardBtn> OnRewardAvailable;
 
-        /// Text Mesh Pro 
         private  List<Action<string>>  _tickListeners;
  
         public void RemoveAllTickListeners ()
@@ -239,10 +242,17 @@ namespace Randoms.DailyReward
                 );
             _applyUiStyling = _action;
         }
+        
+        public TimeSpan NextRewardTime 
+        {
+            get => DailyRewardInternal.NextRewardTime;
+        }
+        
         #endregion
 
         #region Editor
 
+        #if UNITY_EDITOR
         [MenuItem("Tools/DailyReward/DailyRewardManager")]
         private static void CreateInstance ()
         {
@@ -254,7 +264,7 @@ namespace Randoms.DailyReward
 
             Selection.activeObject = instance;
         }
-
+        
         void OnDrawGizmos()
         {
             var instances = GameObject.FindObjectsOfType<DailyRewardManager> ();
@@ -265,6 +275,7 @@ namespace Randoms.DailyReward
             DestroyImmediate (this);
             Debug.LogError(@"'DailyRewardManager' is a singleton. Please use the existing one");
         }
+        #endif
 
         #endregion
     }

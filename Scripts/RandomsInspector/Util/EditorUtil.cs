@@ -6,6 +6,7 @@ using UnityEditor;
 namespace Randoms.Inspector
 {
     using DailyReward;
+    #if UNITY_EDITOR
     public static class EditorUtil 
     {
         public static void FocusOrCreateAsset (
@@ -13,6 +14,7 @@ namespace Randoms.Inspector
             bool allowMultiple = false
         )
         {
+            Debug.Log("Called");
             var potentialsAssets = UnityEditor.AssetDatabase.FindAssets(assetFilter);
 
             if (potentialsAssets.Length == 0)
@@ -34,12 +36,11 @@ namespace Randoms.Inspector
             foreach(var asset in  potentialsAssets)
             {
                 var path = AssetDatabase.GUIDToAssetPath(asset);
-                if (path.Contains(assetFilter))
-                {
-                    Selection.activeObject = AssetDatabase.LoadAssetAtPath<DailyRewardConfigSO>(path);
-                    return;
-                }
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<DailyRewardConfigSO>(path);
             }
         } 
     }
+    #endif
 }
+
+

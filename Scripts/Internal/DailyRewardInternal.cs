@@ -85,9 +85,7 @@ namespace Randoms.DailyReward.Internals
             string onAvailableText = "AVAILABLE"
         )
         {
-            var timeNow = DateTime.Now;
-            var lastTime = DateTime.Parse (store.lastTime);
-            TimeSpan timeDiff = lastTime - timeNow; 
+            var timeDiff = NextRewardTime; 
             return 
             (
                 Math.Abs(timeDiff.Days) <= 0 && !isInitialized
@@ -98,7 +96,19 @@ namespace Randoms.DailyReward.Internals
             ); 
         }
 
-
+        /// <Summary>
+        /// Returns Next Reward Time Span
+        /// </Summary>
+        public static TimeSpan NextRewardTime 
+        {
+            get {
+                var timeNow = DateTime.Now;
+                var lastTime = DateTime.Parse (store.lastTime);
+                TimeSpan timeDiff = lastTime - timeNow; 
+                return timeDiff;
+            }
+        }
+        
         /// <summary>
         /// Returns can Claim today reward
         /// </summary>

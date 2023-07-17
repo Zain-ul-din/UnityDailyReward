@@ -27,6 +27,7 @@ public class DailyRewardDemo : MonoBehaviour
         DailyRewardManager.Instance.OnRewardAvailable += (DailyRewardBtn btn)=>{
             // add listener here also update reward text here
         };
+
     }  
     
     /// Update Text Mesh Pro

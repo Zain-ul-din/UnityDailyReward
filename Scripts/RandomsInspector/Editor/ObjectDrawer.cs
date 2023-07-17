@@ -7,6 +7,7 @@ namespace Randoms.Inspector
 {
     using Internals.Reflection;
 
+    #if UNITY_EDITOR
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Component), true)]
     public class ObjectDrawer : Editor
@@ -70,4 +71,7 @@ namespace Randoms.Inspector
             serializedObject.ApplyModifiedProperties();
         }
     }
+
+    #endif
 }
+
