@@ -35,7 +35,7 @@ namespace Randoms.DailyReward
         [Button ("Open DailyReward Config")]
         private void OpenConfig ()
         {
-            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:ScriptableObject");
+            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:DailyRewardConfigSO");
         }
 
         [Button("Clear All DailyReward Player Prefs")]

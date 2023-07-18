@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Randoms.DailyReward
 {
     using Inspector;
-    [RequireComponent (typeof (IPointerClickHandler))]
+    [RequireComponent (typeof (Button))]
     public class DailyRewardBtn : MonoBehaviour 
     {
         [HideInInspector] public Button btn;
@@ -84,7 +83,7 @@ namespace Randoms.DailyReward
         [Button("Open Config", doc = "if you want to use your own styles - untick use default styling from config")]
         private void Docs ()
         {
-            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:ScriptableObject");
+            EditorUtil.FocusOrCreateAsset("DailyRewardConfig t:DailyRewardConfigSO");
         }
         #endif
         #endregion

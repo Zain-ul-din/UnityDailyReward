@@ -14,7 +14,6 @@ namespace Randoms.Inspector
             bool allowMultiple = false
         )
         {
-            Debug.Log("Called");
             var potentialsAssets = UnityEditor.AssetDatabase.FindAssets(assetFilter);
 
             if (potentialsAssets.Length == 0)
@@ -22,7 +21,7 @@ namespace Randoms.Inspector
                 var asset = ScriptableObject.CreateInstance<DailyRewardConfigSO>();
                 if (!AssetDatabase.IsValidFolder("Assets/Resources"))
                     AssetDatabase.CreateFolder("Assets", "Resources");
-                AssetDatabase.CreateAsset(asset, assetFilter);
+                AssetDatabase.CreateAsset(asset, $"Assets/Resources/{assetFilter.Split('t')[0].Trim()}.asset");
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 Selection.activeObject = asset;
