@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
+using System.Linq;
 
 namespace Randoms.Inspector
 {
@@ -13,6 +14,7 @@ namespace Randoms.Inspector
     public class ObjectDrawer : Editor
     {
         public static List<(MethodInfo method, System.Action action)> buttonMethods = new List<(MethodInfo, System.Action)>();
+        static bool s_isUsingRandomsAttributes;
 
         void OnEnable()
         {
@@ -21,15 +23,27 @@ namespace Randoms.Inspector
                 return method.IsDefined(typeof(ButtonAttribute), true);
             });
 
+            var fields = target.GetFieldsInfo((field) => {
+                return field.IsDefined(typeof(ShowIfAttribute), true);
+            });
+
+            
             foreach (var method in methods)
             {
                 System.Action action = () => target.GetMethodInfo(method.Name).Invoke(target, null);
                 buttonMethods.Add((method, action));
             }
+
+            s_isUsingRandomsAttributes = methods.ToArray().Length > 0 || fields.ToArray().Length > 0;
         }
         
         public override void OnInspectorGUI()
         {
+            if(!s_isUsingRandomsAttributes) {
+                base.OnInspectorGUI();
+                return;
+            }
+
             serializedObject.Update ();
 
             var iterator = serializedObject.GetIterator();
@@ -71,6 +85,8 @@ namespace Randoms.Inspector
                 }
             }
 
+            GUILayout.FlexibleSpace();
+            GUILayout.Box("The Inspector is rendering via Randoms.Inspector");
             serializedObject.ApplyModifiedProperties();
         }
     }
