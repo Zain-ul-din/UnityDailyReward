@@ -13,7 +13,7 @@ namespace Randoms.Inspector
     [CustomEditor(typeof(Component), true)]
     public class ObjectDrawer : Editor
     {
-        public static List<(MethodInfo method, System.Action action)> buttonMethods = new List<(MethodInfo, System.Action)>();
+        public List<(MethodInfo method, System.Action action)> buttonMethods = new List<(MethodInfo, System.Action)>();
         static bool s_isUsingRandomsAttributes;
 
         void OnEnable()
