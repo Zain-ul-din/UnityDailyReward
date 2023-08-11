@@ -265,6 +265,7 @@ namespace Randoms.DailyReward
                     Please disable it first"
                 );
             _applyUiStyling = _action;
+            Init();
         }
         
         public TimeSpan NextRewardTime 
