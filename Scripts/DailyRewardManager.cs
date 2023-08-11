@@ -19,13 +19,18 @@ namespace Randoms.DailyReward
 
         [Header ("Timer Text Options")]
         public Text timeCounterText;
-
+        
         [Space(20)]
         [SerializeField] private UnityEvent onActiveBtnClicked;
         
         [Space(5)] [Header("Called Only if redeem is enabled")]
         [ShowIf("Editor_OnRedeemEnable")][SerializeField] private UnityEvent onRedeemActiveBtnClicked;
-        
+
+        [Space(5)]
+        [Header("Custom Claim Button")]
+        [ShowIf("Editor_CanuseCustomBtn")]
+        [SerializeField] private Button customClaimBtn;
+
         #endregion
 
         #region Docs
@@ -56,6 +61,14 @@ namespace Randoms.DailyReward
             if (res == null)
                 return DailyRewardConfigSO.Instance.useRedeem;
             return res.useRedeem;
+        }
+
+        private bool Editor_CanuseCustomBtn ()
+        {
+            var res = Resources.Load<DailyRewardConfigSO>("DailyRewardConfig");
+            if (res == null)
+                return DailyRewardConfigSO.Instance.useCustomClaimButton;
+            return res.useCustomClaimButton;
         }
 
         #endif
@@ -146,19 +159,30 @@ namespace Randoms.DailyReward
                     activeBtn = btn;
                     OnRewardAvailable?.Invoke(activeBtn);
                     btn.OnClaimState?.Invoke ();
-                    btn.btn.onClick.AddListener (()=> DailyRewardInternal.ClaimTodayReward (()=> {
-                        Init ();
-                        btn.onClick?.Invoke (); 
-                        if (DailyRewardConfigSO.Instance.useRedeem && DailyRewardInternal.CanRedeemReward)
-                            onRedeemActiveBtnClicked?.Invoke();
-                        else                             
-                            onActiveBtnClicked?.Invoke();
-                    }, dailyRewardBtns.Count));
+
+                    var currBtn = DailyRewardConfigSO.Instance.useCustomClaimButton ?
+                        customClaimBtn : btn.btn;
+
+                    currBtn.onClick.RemoveAllListeners();
+                    currBtn.onClick.AddListener(() => ClaimRewardOnBtnClick(btn));
                 }
 
                 _applyUiStyling?.Invoke(btn);
             }
         }   
+
+        private void ClaimRewardOnBtnClick (DailyRewardBtn btn)
+        {
+            DailyRewardInternal.ClaimTodayReward(() =>
+            {
+                Init();
+                btn.onClick?.Invoke();
+                if (DailyRewardConfigSO.Instance.useRedeem && DailyRewardInternal.CanRedeemReward)
+                    onRedeemActiveBtnClicked?.Invoke();
+                else
+                    onActiveBtnClicked?.Invoke();
+            }, dailyRewardBtns.Count);
+        }
         
         IEnumerator CountTimer ()
         {
