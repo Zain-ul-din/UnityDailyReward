@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Randoms.DailyReward.Internals
@@ -65,7 +65,8 @@ namespace Randoms.DailyReward.Internals
             UpdateStore ();
             if (!store.canClaimReward) return;
             store.lastTime = DateTime.Now.ToString ();
-            store.currDay  = store.currDay + 1;
+            store.currDay ++;
+            store.canClaimReward = false;
             // all rewards has been collected
             if (store.currDay > maxDays) {
                 store.canRedeemReward = true;
@@ -75,7 +76,6 @@ namespace Randoms.DailyReward.Internals
             UpdateStore ();
             refreshUI ();
             isInitialized = false;
-
             OnClaimed?.Invoke();
         }
         
